@@ -1,0 +1,28 @@
+---
+- name: Create directory
+  ansible.builtin.file:
+    path: '{{ path_dir }}/{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+    - prometheus
+    - alertmanager
+    - grafana
+    - blackbox
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: '{{ path_home }}/{{ item }}'
+    dest: '{{ item }}'
+    owner: root
+    group: root
+    force: true
+    mode: 0666
+  loop:
+    - '{{ path_dir }}/prometheus/prometheus.yml'
+    - '{{ path_dir }}/prometheus/alert.rules'
+    - '{{ path_dir }}/alertmanager/config.yml'
+    - '{{ path_dir }}/blackbox/blackbox.yml'
+    

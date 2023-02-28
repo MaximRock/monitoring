@@ -1,0 +1,14 @@
+---
+- name: Copy file docker-compose
+  ansible.builtin.copy:
+    src: '{{ path_src }}/{{ item }}'
+    dest: '{{ path_home_project }}'
+  loop:
+    - docker-compose.yml
+
+- name: deploy Docker Compose stack
+  community.docker.docker_compose:
+    project_src: '{{ path_home_project }}'
+    files:
+      - docker-compose.yml
+    

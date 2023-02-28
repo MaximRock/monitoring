@@ -1,0 +1,14 @@
+---
+- name: Install prometheus stack
+  hosts: 
+    - test
+  become: true
+  roles:
+    - role: docker
+      tags: 
+        - docker
+    - role: directory
+      tags: 
+        - directory
+    - role: docker-compose
+      tags: docker-compose    
